@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tiny-httpd
+  namespace: test-gitops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tiny-httpd
+  template:
+    metadata:
+      labels:
+        app: tiny-httpd
+    spec:
+      containers:
+        - name: tiny-httpd
+          image: registry.access.redhat.com/ubi9/httpd-24
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 50m
+              memory: 64Mi
